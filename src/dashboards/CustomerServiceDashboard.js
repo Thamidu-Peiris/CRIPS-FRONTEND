@@ -51,7 +51,7 @@ const CustomerServiceDashboard = () => {
   // ✅ Bar Chart Options
   const barChartOptions = {
     responsive: true,
-    maintainAspectRatio: false,
+    maintainAspectRatio: false, // Disable aspect ratio to allow custom height
     plugins: {
       legend: { display: true, position: "top" },
       title: {
@@ -86,7 +86,7 @@ const CustomerServiceDashboard = () => {
   // ✅ Pie Chart Options
   const pieChartOptions = {
     responsive: true,
-    maintainAspectRatio: false,
+    maintainAspectRatio: false, // Disable aspect ratio to allow custom height
     plugins: {
       legend: { position: "bottom" },
       title: {
@@ -207,10 +207,13 @@ const CustomerServiceDashboard = () => {
 
         {/* Charts Section */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
-          <div className="bg-white p-6 rounded-2xl shadow-md">
+          {/* Bar Chart */}
+          <div className="bg-white p-6 rounded-2xl shadow-md" style={{ height: "400px" }}>
             <Bar data={barChartData} options={barChartOptions} />
           </div>
-          <div className="bg-white p-6 rounded-2xl shadow-md">
+
+          {/* Pie Chart */}
+          <div className="bg-white p-6 rounded-2xl shadow-md" style={{ height: "400px" }}>
             <Pie data={pieChartData} options={pieChartOptions} />
           </div>
         </div>
