@@ -102,11 +102,12 @@ const CustomerServiceDashboard = () => {
     <div className="flex h-screen bg-gray-100">
       {/* Sidebar */}
       <nav className="w-72 bg-white shadow-lg p-6 rounded-2xl m-4 hidden md:block">
-        <h2 className="text-2xl font-bold mb-6 text-gray-800">CSM Panel</h2>
+      <img src="/logo.png" alt="Logo" className="h-16 mx-auto"  style={{ paddingBottom: "14px" }} />
+       {/* <h2 className="text-2xl font-bold mb-6 text-gray-800">CSM Panel</h2> */}
         <ul className="space-y-4">
           <li>
-            <a href="#home" className="flex items-center p-3 rounded-lg bg-gray-200">
-              <FiHome className="mr-3" /> Home
+            <a href="/customer-service-dashboard" className="flex items-center p-3 rounded-lg bg-gray-200">
+              <MdDashboard className="mr-3" /> Dashboard
             </a>
           </li>
           <li>
@@ -164,7 +165,7 @@ const CustomerServiceDashboard = () => {
                 <div className="absolute right-0 mt-2 w-48 bg-white shadow-lg rounded-lg z-50">
                   <ul className="py-2">
                     <li>
-                      <a href="#dashboard" className="flex items-center px-4 py-2 hover:bg-gray-200">
+                      <a href="/customer-service-dashboard" className="flex items-center px-4 py-2 hover:bg-gray-200">
                         <MdDashboard className="mr-2" /> Dashboard
                       </a>
                     </li>
