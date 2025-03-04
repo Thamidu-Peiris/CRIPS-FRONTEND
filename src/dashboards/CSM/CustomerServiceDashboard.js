@@ -5,6 +5,8 @@ import axios from "axios";
 import { FiHome, FiShoppingCart, FiDollarSign, FiTruck, FiHeadphones, FiUsers, FiTag, FiSettings, FiUser, FiLock, FiLogOut } from "react-icons/fi";
 import { MdNotificationsNone, MdDashboard } from "react-icons/md";
 import { FaUserCircle } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
+
 
 // Register Chart.js components
 Chart.register(CategoryScale, LinearScale, BarElement, ArcElement, Title, Tooltip, Legend);
@@ -12,6 +14,14 @@ Chart.register(CategoryScale, LinearScale, BarElement, ArcElement, Title, Toolti
 const CustomerServiceDashboard = () => {
   const [orders, setOrders] = useState([]);
   const [showMenu, setShowMenu] = useState(false);
+  const navigate = useNavigate();  
+
+  const handleLogout = () => {
+    localStorage.removeItem("userId"); // Clear user session
+    navigate("/employee-login");
+  };
+
+
 
   const [stats, setStats] = useState({
     totalOrders: 250,
@@ -51,7 +61,7 @@ const CustomerServiceDashboard = () => {
   // ✅ Bar Chart Options
   const barChartOptions = {
     responsive: true,
-    maintainAspectRatio: false, // Disable aspect ratio to allow custom height
+    maintainAspectRatio: false, 
     plugins: {
       legend: { display: true, position: "top" },
       title: {
@@ -150,42 +160,45 @@ const CustomerServiceDashboard = () => {
 
       {/* Main Content */}
       <main className="flex-1 p-6">
-        {/* Navbar */}
-        <div className="flex justify-between items-center bg-white p-4 shadow-md rounded-2xl relative">
-          <h1 className="text-2xl font-bold text-gray-800">Welcome, CS Manager</h1>
-          <div className="flex items-center space-x-4">
-            <MdNotificationsNone className="text-gray-800 text-2xl" />
-            {/* Profile Icon with Dropdown */}
-            <div className="relative">
-              <button onClick={() => setShowMenu(!showMenu)} className="flex items-center space-x-2">
-                <FaUserCircle className="text-gray-800 text-2xl" />
-                <span className="text-gray-800 font-semibold">Manager</span>
-              </button>
-              {showMenu && (
-                <div className="absolute right-0 mt-2 w-48 bg-white shadow-lg rounded-lg z-50">
-                  <ul className="py-2">
-                    <li>
-                      <a href="/customer-service-dashboard" className="flex items-center px-4 py-2 hover:bg-gray-200">
-                        <MdDashboard className="mr-2" /> Dashboard
-                      </a>
-                    </li>
-                    <li>
-                      <a href="#profile" className="flex items-center px-4 py-2 hover:bg-gray-200">
-                        <FiUser className="mr-2" /> Update Profile
-                      </a>
-                    </li>
-                    <li>
-                      <a href="#change-password" className="flex items-center px-4 py-2 hover:bg-gray-200">
-                        <FiLock className="mr-2" /> Change Password
-                      </a>
-                    </li>
-                    <li>
-                      <button className="flex items-center px-4 py-2 text-red-600 hover:bg-red-100 w-full text-left">
-                        <FiLogOut className="mr-2" /> Logout
-                      </button>
-                    </li>
-                  </ul>
-                </div>
+  {/* Navbar */}
+  <div className="flex justify-between items-center bg-white p-4 shadow-md rounded-2xl">
+    <h1 className="text-2xl font-bold text-gray-800">Welcome, CS Manager</h1>
+
+    {/* Right Section (Notification + Profile) */}
+    <div className="flex items-center space-x-6">
+      
+      {/* Notification Icon */}
+      <button className="relative">
+        <MdNotificationsNone className="text-gray-800 text-3xl" />
+      </button>
+
+      {/* Profile Dropdown */}
+      <div className="relative">
+        {/* Profile Button */}
+        <button onClick={() => setShowMenu(!showMenu)} className="flex items-center space-x-2">
+          <FaUserCircle className="text-gray-800 text-3xl" />
+          <span className="text-gray-800 font-semibold">Manager</span>
+        </button>
+
+
+              {/* Dropdown Menu */}
+        {showMenu && (
+          <div className="absolute right-0 mt-2 w-48 bg-white shadow-lg rounded-lg z-50">
+            <ul className="py-2">
+              <li onClick={() => navigate("/profile-settings")} className="flex items-center px-4 py-2 hover:bg-gray-200 cursor-pointer">
+                <FiUser className="mr-2" /> Profile
+              </li>
+              <li onClick={() => navigate("/update-profile")} className="flex items-center px-4 py-2 hover:bg-gray-200 cursor-pointer">
+                <FiSettings className="mr-2" /> Update Profile
+              </li>
+              <li onClick={() => navigate("/change-password")} className="flex items-center px-4 py-2 hover:bg-gray-200 cursor-pointer">
+                <FiLock className="mr-2" /> Change Password
+              </li>
+              <li onClick={handleLogout} className="flex items-center px-4 py-2 text-red-600 hover:bg-red-100 cursor-pointer">
+                <FiLogOut className="mr-2" /> Logout
+              </li>
+            </ul>
+          </div>
               )}
             </div>
           </div>
@@ -218,14 +231,16 @@ const CustomerServiceDashboard = () => {
             <Pie data={pieChartData} options={pieChartOptions} />
           </div>
         </div>
+ 
+        
 
         {/* ✅ Latest Orders Table */}
         <div className="bg-white p-6 rounded-2xl shadow-md mt-6">
           <h3 className="text-lg font-semibold mb-4">Latest Orders</h3>
-          <div className="overflow-x-auto">
-            <table className="w-full border-collapse border border-gray-300">
+          <div className="overflow-x-auto rounded-3xl ">
+            <table className="w-full border-collapse  border border-gray-300">
               <thead>
-                <tr className="bg-gray-200">
+                <tr className="bg-gray-200 ">
                   <th className="py-3 px-4 border border-gray-300">Order</th>
                   <th className="py-3 px-4 border border-gray-300">Status</th>
                   <th className="py-3 px-4 border border-gray-300">Payment</th>
