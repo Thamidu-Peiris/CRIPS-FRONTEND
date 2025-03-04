@@ -25,6 +25,7 @@ const CustomerDashboard = () => {
       navigate("/login");
     }
 
+    
     // Fetch plant data
     const fetchPlants = async () => {
       try {

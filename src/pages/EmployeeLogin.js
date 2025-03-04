@@ -18,7 +18,10 @@ const EmployeeLogin = () => {
       const response = await axios.post("http://localhost:5000/api/jobs/login", formData);
       if (response.data.success) {
         localStorage.setItem("employeeInfo", JSON.stringify(response.data.user));
-
+        localStorage.setItem("userId", response.data.user.id); // ✅ Store userId separately
+  
+        console.log("✅ User ID Stored:", response.data.user.id); // Debugging Log
+  
         // ✅ Redirect based on role
         switch (response.data.user.role) {
           case "Customer Service Manager":
@@ -44,8 +47,10 @@ const EmployeeLogin = () => {
       }
     } catch (error) {
       setError("Login failed. Please try again.");
+      console.error("❌ Login Error:", error.response ? error.response.data : error.message); // Debugging Log
     }
   };
+  
 
   return (
     <Layout>
